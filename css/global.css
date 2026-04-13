@@ -1,0 +1,152 @@
+/*
+  ╔══════════════════════════════════════════════╗
+  ║           global.css                        ║
+  ║  Design tokens (CSS variables), reset,      ║
+  ║  typography, and the phone frame itself.    ║
+  ║  Every color in the app comes from here.    ║
+  ╚══════════════════════════════════════════════╝
+*/
+
+/* ── RESET ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── DESIGN TOKENS ── */
+:root {
+  /* Backgrounds — darkest to lightest surface */
+  --bg:       #0a0a0f;   /* page background */
+  --bg2:      #12121a;   /* slightly lighter surface */
+  --bg3:      #1a1a26;   /* card surface */
+  --card:     #1e1e2e;   /* card / list item */
+
+  /* Brand colors */
+  --accent:   #7c6cfc;   /* purple  — primary actions */
+  --accent2:  #fc6c8f;   /* pink    — negative / danger */
+  --accent3:  #6cfcb8;   /* green   — positive / covered */
+  --accent4:  #fcb86c;   /* amber   — warning / flag */
+
+  /* Text */
+  --text:     #f0f0ff;   /* primary text */
+  --text2:    #9090b0;   /* secondary / muted */
+  --text3:    #5a5a7a;   /* hint / disabled */
+
+  /* Borders */
+  --border:   rgba(255, 255, 255, 0.07);
+
+  /* Radii */
+  --r:  16px;  /* large cards */
+  --r2: 12px;  /* smaller cards / items */
+
+  /* Fonts */
+  --font-heading: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+/* ── BASE ── */
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 16px;
+}
+
+/* ── PHONE FRAME ── */
+/*
+  The entire app lives inside this .phone div.
+  It mimics a mobile screen at 375px width —
+  the same width as an iPhone 14.
+*/
+.phone {
+  width: 375px;
+  min-height: 780px;
+  background: var(--bg);
+  border-radius: 40px;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+}
+
+/* ── STATUS BAR ── */
+.status-bar {
+  padding: 12px 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text2);
+}
+.status-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── SCREEN CONTAINER ── */
+/*
+  Each screen is a <div class="screen"> inside .phone.
+  Only the active screen is visible.
+  The padding-bottom: 80px makes room for the bottom nav.
+*/
+.screen {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 80px;
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+.screen.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SCROLLBAR ── */
+.screen::-webkit-scrollbar { width: 0; }
+
+/* ── UTILITY SPACING ── */
+.px-20  { padding-left: 20px; padding-right: 20px; }
+.pt-20  { padding-top: 20px; }
+.mb-14  { margin-bottom: 14px; }
+.mb-16  { margin-bottom: 16px; }
+
+/* ── UTILITY COLORS ── */
+.green { color: var(--accent3); }
+.pink  { color: var(--accent2); }
+.amber { color: var(--accent4); }
+.purple{ color: var(--accent);  }
+.red   { color: var(--accent2); }
+
+/* ── SECTION TITLE ── */
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+/* ── SCREEN HEADING (top of each screen) ── */
+.screen-heading {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.screen-sub {
+  font-size: 13px;
+  color: var(--text2);
+  margin-bottom: 16px;
+}

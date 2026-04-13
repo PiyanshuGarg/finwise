@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinWise — Gen-Z Finance Super App</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Global styles -->
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/screens.css" />
+</head>
+<body>
+
+  <!--
+    ╔══════════════════════════════════════════╗
+    ║         FINWISE — APP SHELL              ║
+    ║  This file holds the phone frame,        ║
+    ║  status bar, all 5 screens, and the      ║
+    ║  bottom navigation bar.                  ║
+    ╚══════════════════════════════════════════╝
+  -->
+
+  <div class="phone">
+
+    <!-- Status Bar (time + icons) -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <span class="status-right">
+        <svg width="16" height="10" viewBox="0 0 16 10">
+          <rect x="0" y="3" width="3" height="7" fill="currentColor" opacity=".4" rx="1"/>
+          <rect x="4.5" y="2" width="3" height="8" fill="currentColor" opacity=".6" rx="1"/>
+          <rect x="9" y="0" width="3" height="10" fill="currentColor" rx="1"/>
+          <rect x="13.5" y="0" width="2.5" height="10" fill="currentColor" rx="1"/>
+        </svg>
+        <svg width="16" height="10" viewBox="0 0 16 10">
+          <path d="M8 2.5C10.2 2.5 12.2 3.5 13.5 5L15 3.5C13.3 1.8 11 0.5 8 0.5C5 0.5 2.7 1.8 1 3.5L2.5 5C3.8 3.5 5.8 2.5 8 2.5Z" fill="currentColor"/>
+          <path d="M8 5.5C9.5 5.5 10.8 6.2 11.7 7.2L13.2 5.7C11.9 4.4 10.1 3.5 8 3.5C5.9 3.5 4.1 4.4 2.8 5.7L4.3 7.2C5.2 6.2 6.5 5.5 8 5.5Z" fill="currentColor" opacity=".7"/>
+          <circle cx="8" cy="9" r="1.5" fill="currentColor" opacity=".5"/>
+        </svg>
+        <span>87%</span>
+      </span>
+    </div>
+
+    <!-- ══ SCREEN 1: HOME ══ -->
+    <div class="screen active" id="s-home">
+
+      <div class="home-header">
+        <div class="greeting">Good morning,</div>
+        <div class="user-name">Arjun Sharma</div>
+      </div>
+
+      <!-- 3 quick stat cards -->
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-val">₹24.8k</div>
+          <div class="stat-label">Balance</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val green">₹3.2k</div>
+          <div class="stat-label">Saved this month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val pink">₹890</div>
+          <div class="stat-label">Invested</div>
+        </div>
+      </div>
+
+      <!-- Trust Score Card -->
+      <div class="px-20">
+        <div class="trust-card">
+          <div class="trust-label">Trust Score</div>
+          <div class="trust-score-row">
+            <!-- Animated ring (CSS stroke-dashoffset trick) -->
+            <div class="trust-ring">
+              <svg viewBox="0 0 72 72">
+                <circle class="ring-track" cx="36" cy="36" r="30"/>
+                <circle class="ring-fill"  cx="36" cy="36" r="30"/>
+              </svg>
+              <div class="trust-score-num">80</div>
+            </div>
+            <div class="trust-info">
+              <div class="trust-title">Good Standing</div>
+              <div class="trust-sub">Your data is protected. 3 permissions active.</div>
+              <div class="trust-badges">
+                <span class="badge badge-green">Data secure</span>
+                <span class="badge badge-green">No leaks</span>
+                <span class="badge badge-red">1 flag</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flagged Transaction Banner (tap to expand) -->
+      <div class="px-20 mb-14">
+        <div class="flagged-banner" onclick="toggleFlag()">
+          <div class="flag-row">
+            <div class="flag-dot"></div>
+            <div class="flag-title">Transaction Flagged — tap to see why</div>
+          </div>
+          <div class="flag-expand" id="flag-expand">
+            <div class="flag-body">
+              A payment of <strong>₹4,200</strong> to "FastMart Online" was flagged.
+            </div>
+            <div class="flag-reason">
+              <strong>Why flagged?</strong>
+              Merchant is new · Amount is 3.1× your average · Different city (Mumbai vs Delhi)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action Grid -->
+      <div class="px-20 mb-14">
+        <div class="section-title">Quick actions</div>
+        <div class="qa-grid">
+          <div class="qa-item" onclick="nav('insure')">
+            <div class="qa-icon">🛡️</div>
+            <div class="qa-label">Insure</div>
+          </div>
+          <div class="qa-item" onclick="nav('invest')">
+            <div class="qa-icon">📈</div>
+            <div class="qa-label">Invest</div>
+          </div>
+          <div class="qa-item" onclick="nav('grow')">
+            <div class="qa-icon">🌱</div>
+            <div class="qa-label">Grow</div>
+          </div>
+          <div class="qa-item" onclick="nav('advisor')">
+            <div class="qa-icon">🤖</div>
+            <div class="qa-label">Advisor</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Transactions -->
+      <div class="px-20">
+        <div class="section-title">Recent transactions</div>
+        <div class="txn-item">
+          <div class="txn-avatar" style="background:rgba(108,252,184,0.1)">🛒</div>
+          <div class="txn-info">
+            <div class="txn-name">Swiggy</div>
+            <div class="txn-detail">Today, 1:23 PM · Food</div>
+          </div>
+          <div class="txn-amt red">−₹340</div>
+        </div>
+        <div class="txn-item">
+          <div class="txn-avatar" style="background:rgba(124,108,252,0.1)">💼</div>
+          <div class="txn-info">
+            <div class="txn-name">Salary</div>
+            <div class="txn-detail">Yesterday · Income</div>
+          </div>
+          <div class="txn-amt green">+₹32,000</div>
+        </div>
+        <div class="txn-item">
+          <div class="txn-avatar" style="background:rgba(252,184,108,0.1)">⚠️</div>
+          <div class="txn-info">
+            <div class="txn-name">FastMart Online</div>
+            <div class="txn-detail">2 days ago · Flagged</div>
+          </div>
+          <div class="txn-amt amber">−₹4,200</div>
+        </div>
+      </div>
+
+    </div>
+    <!-- END SCREEN: HOME -->
+
+
+    <!-- ══ SCREEN 2: INSURE ══ -->
+    <div class="screen" id="s-insure">
+
+      <div class="px-20 pt-20">
+        <div class="screen-heading">My Insurance</div>
+        <div class="screen-sub">Plain-language coverage overview</div>
+
+        <!-- Policy card -->
+        <div class="policy-card">
+          <div class="policy-name">Star Health — Family Floater</div>
+          <div class="policy-meta">Policy #SH2024001 · Renews Mar 2026 · ₹12,000/yr</div>
+          <div class="coverage-bar-label">
+            <span>Coverage used</span>
+            <span class="green">₹1.2L / ₹5L</span>
+          </div>
+          <div class="coverage-bar">
+            <div class="coverage-fill" style="width:24%"></div>
+          </div>
+          <div class="trust-badges" style="margin-top:8px">
+            <span class="badge badge-green">Active</span>
+            <span class="badge badge-amber">2 pending claims</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- What's Covered visual grid -->
+      <div class="px-20 mb-16">
+        <div class="section-title">What's covered?</div>
+        <div class="cov-grid">
+          <div class="cov-item covered">
+            <div class="cov-icon">🏥</div>
+            <div class="cov-name">Hospitalisation</div>
+            <div class="cov-status">Covered</div>
+            <div class="cov-limit">Up to ₹5 lakh</div>
+          </div>
+          <div class="cov-item not-covered">
+            <div class="cov-icon">😷</div>
+            <div class="cov-name">OPD visits</div>
+            <div class="cov-status">Not covered</div>
+            <div class="cov-limit">Add-on required</div>
+          </div>
+          <div class="cov-item covered">
+            <div class="cov-icon">🚑</div>
+            <div class="cov-name">Ambulance</div>
+            <div class="cov-status">Covered</div>
+            <div class="cov-limit">Up to ₹2,000</div>
+          </div>
+          <div class="cov-item not-covered">
+            <div class="cov-icon">💊</div>
+            <div class="cov-name">Medicines (OPD)</div>
+            <div class="cov-status">Not covered</div>
+            <div class="cov-limit">Pre-existing only</div>
+          </div>
+          <div class="cov-item covered">
+            <div class="cov-icon">🧪</div>
+            <div class="cov-name">Diagnostics</div>
+            <div class="cov-status">Covered</div>
+            <div class="cov-limit">Within hospital</div>
+          </div>
+          <div class="cov-item not-covered">
+            <div class="cov-icon">🦷</div>
+            <div class="cov-name">Dental care</div>
+            <div class="cov-status">Not covered</div>
+            <div class="cov-limit">Excluded</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scenario Simulator -->
+      <div class="px-20 mb-16">
+        <div class="section-title">What happens if…</div>
+        <div class="scenario-card">
+          <div class="scenario-item">
+            <div class="scenario-q">I get admitted for dengue?</div>
+            <span class="scenario-ans ans-yes">Covered</span>
+          </div>
+          <div class="scenario-item">
+            <div class="scenario-q">I visit a doctor for a cold?</div>
+            <span class="scenario-ans ans-no">Not covered</span>
+          </div>
+          <div class="scenario-item">
+            <div class="scenario-q">Pre-existing diabetes treatment?</div>
+            <span class="scenario-ans ans-partial">Partial</span>
+          </div>
+          <div class="scenario-item">
+            <div class="scenario-q">Emergency surgery abroad?</div>
+            <span class="scenario-ans ans-no">Not covered</span>
+          </div>
+          <div class="scenario-item">
+            <div class="scenario-q">Day-care procedures?</div>
+            <span class="scenario-ans ans-yes">Covered</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- END SCREEN: INSURE -->
+
+
+    <!-- ══ SCREEN 3: INVEST ══ -->
+    <div class="screen" id="s-invest">
+
+      <div class="px-20 pt-20">
+        <div class="screen-heading">Invest</div>
+        <div class="screen-sub">Simulate before you commit</div>
+
+        <!-- Risk Sandbox Card -->
+        <div class="risk-card">
+          <div class="risk-title">Risk Sandbox</div>
+          <div class="risk-subtitle">See what could happen to your money</div>
+
+          <div class="sim-amount" id="sim-amt">₹10,000</div>
+          <div class="sim-change pos" id="sim-chg">+₹1,200 best · −₹2,800 worst case</div>
+
+          <!-- Amount slider -->
+          <div class="slider-wrap">
+            <div class="slider-label">
+              <span>Amount: <strong id="invest-amt-lbl">₹10,000</strong></span>
+              <span>Risk: <strong id="risk-lbl" class="amber">Medium</strong></span>
+            </div>
+            <input
+              type="range"
+              id="invest-slider"
+              min="1000" max="50000" step="500" value="10000"
+              oninput="updateSim(this.value)"
+            />
+          </div>
+
+          <!-- Scenario toggle buttons -->
+          <div class="sim-scenarios">
+            <button class="sim-btn active" onclick="setScenario(this,'nifty50')">Nifty 50</button>
+            <button class="sim-btn" onclick="setScenario(this,'mf')">Mutual Fund</button>
+            <button class="sim-btn" onclick="setScenario(this,'crypto')">Crypto</button>
+            <button class="sim-btn" onclick="setScenario(this,'fd')">Fixed Deposit</button>
+          </div>
+
+          <!-- AI Explainer box -->
+          <div class="ai-explain">
+            <div class="ai-label">AI Explainer</div>
+            <div class="ai-text" id="ai-explain-txt">
+              Nifty 50 tracks India's top 50 companies. Historically returns 12% per year
+              — but can drop 30% in bad years. Best for 5+ year horizon.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portfolio List -->
+      <div class="px-20 mb-16">
+        <div class="section-title">My portfolio</div>
+
+        <div class="portfolio-item">
+          <div class="port-row">
+            <div class="port-icon" style="background:rgba(108,252,184,0.1)">📊</div>
+            <div class="port-info">
+              <div class="port-name">Nifty 50 Index</div>
+              <div class="port-type">Equity · Low risk</div>
+            </div>
+            <div class="port-val">
+              <div class="port-amount">₹5,200</div>
+              <div class="port-ret pos">+8.3%</div>
+            </div>
+          </div>
+          <div class="port-bar"><div class="port-fill" style="width:60%;background:var(--accent3)"></div></div>
+        </div>
+
+        <div class="portfolio-item">
+          <div class="port-row">
+            <div class="port-icon" style="background:rgba(124,108,252,0.1)">🏛️</div>
+            <div class="port-info">
+              <div class="port-name">SBI Bluechip Fund</div>
+              <div class="port-type">Mutual Fund · Medium</div>
+            </div>
+            <div class="port-val">
+              <div class="port-amount">₹3,800</div>
+              <div class="port-ret pos">+5.1%</div>
+            </div>
+          </div>
+          <div class="port-bar"><div class="port-fill" style="width:40%;background:var(--accent)"></div></div>
+        </div>
+
+        <div class="portfolio-item">
+          <div class="port-row">
+            <div class="port-icon" style="background:rgba(252,108,143,0.1)">⚡</div>
+            <div class="port-info">
+              <div class="port-name">Bitcoin (BTC)</div>
+              <div class="port-type">Crypto · High risk</div>
+            </div>
+            <div class="port-val">
+              <div class="port-amount">₹890</div>
+              <div class="port-ret neg">−12.4%</div>
+            </div>
+          </div>
+          <div class="port-bar"><div class="port-fill" style="width:20%;background:var(--accent2)"></div></div>
+        </div>
+
+      </div>
+    </div>
+    <!-- END SCREEN: INVEST -->
+
+
+    <!-- ══ SCREEN 4: GROW ══ -->
+    <div class="screen" id="s-grow">
+
+      <div class="px-20 pt-20">
+        <div class="screen-heading">Grow</div>
+        <div class="screen-sub">Your financial empowerment journey</div>
+
+        <!-- Growth Score Card -->
+        <div class="growth-score-card">
+          <div class="gs-label">Financial Growth Score</div>
+          <div class="gs-score">720</div>
+          <div class="gs-sub">You're ahead of 64% of users your age</div>
+          <div class="gs-bar">
+            <div class="gs-fill"></div>
+          </div>
+          <div class="gs-range">
+            <span>300</span><span>1000</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Micro-invest Toggle -->
+      <div class="px-20 mb-16">
+        <div class="section-title">Micro-invest rewards</div>
+        <div class="toggle-card">
+          <div class="toggle-row">
+            <div class="toggle-title">Round-up & Invest</div>
+            <div class="toggle-sw" id="micro-toggle" onclick="toggleMicro()">
+              <div class="toggle-knob"></div>
+            </div>
+          </div>
+          <div class="toggle-desc">
+            Every transaction is rounded up to the nearest ₹10.
+            Spare change is auto-invested into your Nifty 50 index fund.
+          </div>
+          <div class="toggle-stat">
+            <div class="ts-item">
+              <div class="ts-val">₹247</div>
+              <div class="ts-label">Invested this month</div>
+            </div>
+            <div class="ts-item">
+              <div class="ts-val">34</div>
+              <div class="ts-label">Transactions</div>
+            </div>
+            <div class="ts-item">
+              <div class="ts-val">+2.1%</div>
+              <div class="ts-label">Return so far</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Milestone Track -->
+      <div class="px-20 mb-16">
+        <div class="section-title">Wealth milestones</div>
+        <div class="milestone-track">
+
+          <div class="milestone-item ms-done">
+            <div class="ms-dot"></div>
+            <div class="ms-card">
+              <div class="ms-title">First save — ₹500</div>
+              <div class="ms-desc">Completed 3 months ago</div>
+              <span class="ms-badge badge-green">Bronze Saver</span>
+            </div>
+          </div>
+
+          <div class="milestone-item ms-done">
+            <div class="ms-dot"></div>
+            <div class="ms-card">
+              <div class="ms-title">Emergency fund — ₹5,000</div>
+              <div class="ms-desc">Completed last month</div>
+              <span class="ms-badge badge-green">Silver Shield</span>
+            </div>
+          </div>
+
+          <div class="milestone-item ms-active">
+            <div class="ms-dot"></div>
+            <div class="ms-card">
+              <div class="ms-title">First investment — ₹10,000</div>
+              <div class="ms-desc">₹9,890 / ₹10,000 · Almost there!</div>
+              <span class="ms-badge badge-purple">In progress</span>
+            </div>
+          </div>
+
+          <div class="milestone-item ms-locked">
+            <div class="ms-dot"></div>
+            <div class="ms-card">
+              <div class="ms-title">3-month SIP — ₹1,000/mo</div>
+              <div class="ms-desc">Start a SIP to unlock</div>
+              <span class="ms-badge badge-locked">Locked</span>
+            </div>
+          </div>
+
+          <div class="milestone-item ms-locked">
+            <div class="ms-dot"></div>
+            <div class="ms-card">
+              <div class="ms-title">Wealth builder — ₹1 lakh</div>
+              <div class="ms-desc">The big one. You've got this.</div>
+              <span class="ms-badge badge-locked">Locked</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <!-- END SCREEN: GROW -->
+
+
+    <!-- ══ SCREEN 5: ADVISOR ══ -->
+    <div class="screen" id="s-advisor">
+
+      <div class="px-20 pt-20">
+        <!-- Advisor header -->
+        <div class="advisor-header">
+          <div class="advisor-avatar">🤖</div>
+          <div class="advisor-info">
+            <div class="advisor-name">FinWise AI</div>
+            <div class="advisor-status">Online · Personalized for you</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat messages -->
+      <div class="chat-area" id="chat-area">
+        <div class="chat-bubble chat-ai">
+          Hey Arjun! You're ₹110 away from your first ₹10,000 investment milestone.
+          Want me to round up your next 5 transactions to get there?
+        </div>
+        <div class="chat-bubble chat-user">Yes! What should I invest in?</div>
+        <div class="chat-bubble chat-ai">
+          Based on your risk profile (medium) and 5-year goal, I recommend
+          <strong>Nifty 50 Index Fund</strong>. Low-cost, diversified, ~12%/yr historically.
+          Want me to set it up?
+        </div>
+        <div class="chat-bubble chat-ai">
+          Also — your OPD visits aren't covered under your current insurance.
+          Adding an OPD rider costs just ₹800/yr and covers ₹5,000 in doctor visits. Worth it?
+        </div>
+      </div>
+
+      <!-- Quick nudge chips -->
+      <div class="nudge-chips">
+        <div class="nudge-chip" onclick="sendNudge(this, 'How do I improve my trust score?')">Improve trust score</div>
+        <div class="nudge-chip" onclick="sendNudge(this, 'Explain my insurance gap')">Insurance gaps</div>
+        <div class="nudge-chip" onclick="sendNudge(this, 'Best SIP for beginners?')">Best SIP for me</div>
+        <div class="nudge-chip" onclick="sendNudge(this, 'How to reach ₹1 lakh?')">Road to ₹1 lakh</div>
+      </div>
+
+      <!-- Chat input -->
+      <div class="chat-input-row">
+        <input
+          class="chat-input"
+          id="chat-inp"
+          placeholder="Ask anything about your money..."
+          onkeydown="if(event.key==='Enter') sendMsg()"
+        />
+        <button class="chat-send" onclick="sendMsg()">
+          <svg viewBox="0 0 24 24" fill="white" width="16" height="16">
+            <path d="M2 21l21-9L2 3v7l15 2-15 2z"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+    <!-- END SCREEN: ADVISOR -->
+
+
+    <!-- ══ BOTTOM NAVIGATION BAR ══ -->
+    <nav class="bottom-nav">
+      <div class="nav-item active" id="nav-home" onclick="nav('home')">
+        <div class="nav-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9,22 9,12 15,12 15,22"/>
+          </svg>
+        </div>
+        <div class="nav-label">Home</div>
+        <div class="nav-dot"></div>
+      </div>
+      <div class="nav-item" id="nav-insure" onclick="nav('insure')">
+        <div class="nav-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div class="nav-label">Insure</div>
+        <div class="nav-dot"></div>
+      </div>
+      <div class="nav-item" id="nav-invest" onclick="nav('invest')">
+        <div class="nav-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <polyline points="22,7 13.5,15.5 8.5,10.5 2,17"/>
+            <polyline points="16,7 22,7 22,13"/>
+          </svg>
+        </div>
+        <div class="nav-label">Invest</div>
+        <div class="nav-dot"></div>
+      </div>
+      <div class="nav-item" id="nav-grow" onclick="nav('grow')">
+        <div class="nav-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2a10 10 0 00-7.35 16.76"/>
+            <path d="M12 2v10l4.24 4.24"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <div class="nav-label">Grow</div>
+        <div class="nav-dot"></div>
+      </div>
+      <div class="nav-item" id="nav-advisor" onclick="nav('advisor')">
+        <div class="nav-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+        </div>
+        <div class="nav-label">Advisor</div>
+        <div class="nav-dot"></div>
+      </div>
+    </nav>
+
+  </div><!-- end .phone -->
+
+  <!-- JavaScript files loaded at the bottom -->
+  <script src="js/navigation.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/invest.js"></script>
+  <script src="js/grow.js"></script>
+  <script src="js/advisor.js"></script>
+
+</body>
+</html>
